@@ -17,16 +17,16 @@ double dot_avx2_vertical_fma(std::int32_t n, double* x, double* y)
 {
   __m256d temp = _mm256_setzero_pd();
 
-  for (std::int32_t i = 0; i < n; i = i + 2) {
+  for (std::int32_t i = 0; i < n; i = i + 4) {
     __m256d vx = _mm256_load_pd(&x[i]);
     __m256d vy = _mm256_load_pd(&y[i]);
     temp = _mm256_fmadd_pd(vx, vy, temp);
   }
 
-  double sum[2];
+  double sum[4];
   _mm256_store_pd(&sum[0], temp);
 
-  return sum[0] + sum[1];
+  return sum[0] + sum[1] + sum[2] + sum[3];
 }
 
 
