@@ -15,7 +15,18 @@
 
 double dot_avx2_vertical(std::int32_t n, double* x, double* y)
 {
-  return 5;
+  __m256d temp = _mm256_setzero_pd();
+
+  for (std::int32_t i = 0; i < n; i = i + 4) {
+    __m256d vx = _mm256_load_pd(&x[i]);
+    __m256d vy = _mm256_load_pd(&y[i]);
+    temp = _mm256_add_pd(_mm256_mul_pd(vx, vy), temp);
+  }
+
+  double sum[4];
+  _mm256_store_pd(&sum[0], temp);
+
+  return sum[0] + sum[1] + sum[2] + sum[3];
 }
 
 

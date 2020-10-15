@@ -1,7 +1,7 @@
 // dot_sse_vertical.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -msse4 -std=c++17 dot_sse_vertical.cxx -o sse_vertical.exe
+//    g++-9 -Wall -pedantic -std=c++17 -msse4 dot_sse_vertical.cxx -o sse_vertical.exe
 
 // Usage:
 //    ./sse_vertical.exe
@@ -15,7 +15,18 @@
 
 double dot_sse_vertical(std::int32_t n, double* x, double* y)
 {
-  return 5;
+  __m128d temp = _mm_setzero_pd();
+
+  for (std::int32_t i = 0; i < n; i = i + 2) {
+    __m128d vx = _mm_load_pd(&x[i]);
+    __m128d vy = _mm_load_pd(&y[i]);
+    temp = _mm_add_pd(_mm_mul_pd(vx, vy), temp);
+  }
+
+  double sum[2];
+  _mm_store_pd(&sum[0], temp);
+
+  return sum[0] + sum[1];
 }
 
 
