@@ -1,7 +1,7 @@
-// dot_unroll_2.cxx
+// dot_ref2_unroll_2.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -O3 dot_unroll_2.cxx -o unroll_2.exe
+//    g++-9 -Wall -pedantic -std=c++17 -O3 dot_ref2_unroll_2.cxx -o unroll_2.exe
 
 // Usage:
 //    ./unroll_4.exe len

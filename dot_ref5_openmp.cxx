@@ -1,7 +1,7 @@
-// dot_ref_openmp.cxx
+// dot_ref5_openmp.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -fopenmp -std=c++17 -O3 dot_ref_openmp.cxx -o openmp.exe
+//    g++-9 -Wall -pedantic -fopenmp -std=c++17 -O3 dot_ref5_openmp.cxx -o openmp.exe
 
 // Usage:
 //    ./openmp.exe len
