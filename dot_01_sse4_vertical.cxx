@@ -1,10 +1,10 @@
-// dot_1_sse_vertical.cxx
+// dot_01_sse4_vertical.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -msse4 -O3 dot_1_sse_vertical.cxx -o sse_vertical.exe
+//    g++-9 -Wall -pedantic -std=c++17 -msse4 -O3 dot_01_sse4_vertical.cxx -o sse4_vertical.exe
 
 // Usage:
-//    ./sse_vertical.exe len
+//    ./sse4_vertical.exe len
 
 
 #include <chrono>
@@ -14,7 +14,7 @@
 #include <immintrin.h>
 
 
-double dot_1_sse_vertical(std::int32_t n, double* x, double* y)
+double dot_01_sse4_vertical(std::int32_t n, double* x, double* y)
 {
   __m128d temp = _mm_setzero_pd();
 
@@ -42,7 +42,7 @@ int main(int argc, char** argv)
   std::vector<double> y(len, 1.0);
 
   auto   t1  = std::chrono::steady_clock::now();
-  double dot = dot_1_sse_vertical( len, x.data(), y.data() );
+  double dot = dot_01_sse4_vertical( len, x.data(), y.data() );
   auto   t2  = std::chrono::steady_clock::now();
 
   auto dur =
