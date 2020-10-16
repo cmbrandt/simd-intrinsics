@@ -28,7 +28,7 @@ double dot_unroll_4(std::int32_t n, double* x, double* y)
     temp4 = temp4 + x[i+3] * y[i+3];
   }
 
-  return temp1 + temp2;
+  return temp1 + temp2 + temp3 + temp4;
 }
 
 

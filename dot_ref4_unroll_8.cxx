@@ -36,7 +36,8 @@ double dot_unroll_8(std::int32_t n, double* x, double* y)
     temp8 = temp8 + x[i+7] * y[i+7];
   }
 
-  return temp1 + temp2;
+  return temp1 + temp2 + temp3 + temp4
+       + temp5 + temp6 + temp7 + temp8;
 }
 
 

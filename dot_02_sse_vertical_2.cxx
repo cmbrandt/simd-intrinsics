@@ -1,10 +1,10 @@
-// dot_sse_vertical.cxx
+// dot_2_sse_vertical_2.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -msse4 -O3 dot_sse_vertical.cxx -o sse_vertical.exe
+//    g++-9 -Wall -pedantic -std=c++17 -msse4 -O3 dot_2_sse_vertical_2.cxx -o sse_vertical_2.exe
 
 // Usage:
-//    ./sse_vertical.exe len
+//    ./sse_vertical_2.exe len
 
 
 #include <chrono>
@@ -14,20 +14,25 @@
 #include <immintrin.h>
 
 
-double dot_sse_vertical(std::int32_t n, double* x, double* y)
+double dot_2_sse_vertical_2(std::int32_t n, double* x, double* y)
 {
-  __m128d temp = _mm_setzero_pd();
+  __m128d temp1 = _mm_setzero_pd();
+  __m128d temp2 = _mm_setzero_pd();
 
-  for (std::int32_t i = 0; i < n; i = i + 2) {
+  for (std::int32_t i = 0; i < n; i += 4) {
     __m128d vx = _mm_load_pd(&x[i]);
     __m128d vy = _mm_load_pd(&y[i]);
-    temp = _mm_add_pd(_mm_mul_pd(vx, vy), temp);
+    temp1 = _mm_add_pd(_mm_mul_pd(vx, vy), temp1);
+    vx    = _mm_load_pd(&x[i+2]);
+    vy    = _mm_load_pd(&y[i+2]);
+    temp2 = _mm_add_pd(_mm_mul_pd(vx, vy), temp2);
   }
 
-  double sum[2];
-  _mm_store_pd(&sum[0], temp);
+  double sum[4];
+  _mm_store_pd(&sum[0], temp1);
+  _mm_store_pd(&sum[2], temp2);
 
-  return sum[0] + sum[1];
+  return sum[0] + sum[1] + sum[2] + sum[3];
 }
 
 
@@ -42,7 +47,7 @@ int main(int argc, char** argv)
   std::vector<double> y(len, 1.0);
 
   auto   t1  = std::chrono::steady_clock::now();
-  double dot = dot_sse_vertical( len, x.data(), y.data() );
+  double dot = dot_2_sse_vertical_2( len, x.data(), y.data() );
   auto   t2  = std::chrono::steady_clock::now();
 
   auto dur =
