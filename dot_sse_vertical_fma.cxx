@@ -4,11 +4,12 @@
 //    g++-9 -Wall -pedantic -std=c++17 -msse4 -mfma dot_sse_vertical_fma.cxx -o sse_vertical_fma.exe
 
 // Usage:
-//    ./sse_vertical_fma.exe
+//    ./sse_vertical_fma.exe len
 
 
 #include <chrono>
 #include <iostream>
+#include <string>
 #include <vector>
 #include <immintrin.h>
 
@@ -30,9 +31,12 @@ double dot_sse_vertical_fma(std::int32_t n, double* x, double* y)
 }
 
 
-int main()
+int main(int argc, char** argv)
 {
-  std::int32_t len{5000};
+  std::int32_t len{50000};
+
+  if (argc > 1)
+    len = std::stoi(argv[1]);
 
   std::vector<double> x(len, 1.0);
   std::vector<double> y(len, 1.0);

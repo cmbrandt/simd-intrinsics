@@ -4,12 +4,13 @@
 //    g++-9 -Wall -pedantic -std=c++17 dot_serial.cxx -o serial.exe
 
 // Usage:
-//    ./serial.exe
+//    ./serial.exe len
 
 
 #include <chrono>
 #include <iostream>
 #include <random>
+#include <string>
 #include <vector>
 
 
@@ -24,9 +25,12 @@ double dot_serial(std::int32_t n, double* x, double* y)
 }
 
 
-int main()
+int main(int argc, char** argv)
 {
-  std::int32_t len{5000};
+  std::int32_t len{50000};
+
+  if (argc > 1)
+    len = std::stoi(argv[1]);
 
   std::vector<double> a(len, 1.0);
   std::vector<double> b(len, 1.0);

@@ -9,13 +9,31 @@
 
 #include <chrono>
 #include <iostream>
+#include <string>
 #include <vector>
 #include <immintrin.h>
 
 
 double dot_sse_dp_pd(std::int32_t n, double* x, double* y)
 {
-  return 5;
+  const int mask = 0b11110001;
+
+  __m128d temp = _mm_setzero_pd();
+
+  for (std::int32_t i = 0; i < n; i = i + 2) {
+    __m128d vx = _mm_load_pd(&x[0]);
+    __m128d vy = _mm_load_pd(&y[0]);
+    temp = _mm_dp_pd(vx, vy, mask);
+  }
+
+  double sum[2];
+  _mm_store_pd(&sum[0], temp);
+
+  //std::cout << "\ninside function:"
+  //          << "\nsum[0] = " << sum[0]
+  //          << "\nsum[1] = " << sum[1] << std::endl;
+
+  return sum[0];
 }
 
 
