@@ -1,3 +1,3 @@
 # Using x86 SIMD Intrinsic Functions
 
-Optimizing the dot product using various sets of x86 SIMD intrinsic functions (work in progress)
+Optimizing the dot product using the SSE4, AVX2, and AVX-512 x86 SIMD instruction sets.
