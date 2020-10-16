@@ -1,10 +1,10 @@
-// dot_serial.cxx
+// dot_unroll_2.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -O3 dot_serial.cxx -o serial.exe
+//    g++-9 -Wall -pedantic -std=c++17 -O3 dot_unroll_2.cxx -o unroll_2.exe
 
 // Usage:
-//    ./serial.exe len
+//    ./unroll_4.exe len
 
 
 #include <chrono>
@@ -14,14 +14,17 @@
 #include <vector>
 
 
-double dot_serial(std::int32_t n, double* x, double* y)
+double dot_unroll_2(std::int32_t n, double* x, double* y)
 {
-  double dot{0.0};
+  double temp1{0.0};
+  double temp2{0.0};
 
-  for (std::int32_t i = 0; i < n; ++i)
-    dot = dot + x[i] * y[i];
+  for (std::int32_t i = 0; i < n; i += 2) {
+    temp1 = temp1 + x[i]   * y[i];
+    temp2 = temp2 + x[i+1] * y[i+1];
+  }
 
-  return dot;
+  return temp1 + temp2;
 }
 
 
@@ -35,8 +38,11 @@ int main(int argc, char** argv)
   std::vector<double> a(len, 1.0);
   std::vector<double> b(len, 1.0);
 
+  std::cout << "\na.size() = " << a.size()
+            << "\nb.size() = " << b.size() << std::endl;
+
   auto   t1  = std::chrono::steady_clock::now();
-  double dot = dot_serial( len, a.data(), b.data() );
+  double dot = dot_unroll_2( len, a.data(), b.data() );
   auto   t2  = std::chrono::steady_clock::now();
 
   auto dur =

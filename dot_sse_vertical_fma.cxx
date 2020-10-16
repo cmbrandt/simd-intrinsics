@@ -1,7 +1,7 @@
 // dot_sse_vertical_fma.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -msse4 -mfma dot_sse_vertical_fma.cxx -o sse_vertical_fma.exe
+//    g++-9 -Wall -pedantic -std=c++17 -msse4 -mfma -O3 dot_sse_vertical_fma.cxx -o sse_vertical_fma.exe
 
 // Usage:
 //    ./sse_vertical_fma.exe len

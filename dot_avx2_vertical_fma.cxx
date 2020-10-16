@@ -1,7 +1,7 @@
 // dot_avx2_vertical_fma.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -mfma dot_avx2_vertical_fma.cxx -o avx2_vertical_fma.exe
+//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -mfma -O3 dot_avx2_vertical_fma.cxx -o avx2_vertical_fma.exe
 
 // Usage:
 //    ./avx2_vertical_fma.exe len

@@ -1,10 +1,10 @@
-// dot_serial.cxx
+// dot_openmp.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -O3 dot_serial.cxx -o serial.exe
+//    g++-9 -Wall -pedantic -fopenmp -std=c++17 -O3 dot_openmp.cxx -o openmp.exe
 
 // Usage:
-//    ./serial.exe len
+//    ./openmp.exe len
 
 
 #include <chrono>
@@ -12,12 +12,14 @@
 #include <random>
 #include <string>
 #include <vector>
+#include <omp.h>
 
 
-double dot_serial(std::int32_t n, double* x, double* y)
+double dot_openmp(std::int32_t n, double* x, double* y)
 {
   double dot{0.0};
 
+#pragma omp simd reduction (+:dot)
   for (std::int32_t i = 0; i < n; ++i)
     dot = dot + x[i] * y[i];
 
@@ -36,7 +38,7 @@ int main(int argc, char** argv)
   std::vector<double> b(len, 1.0);
 
   auto   t1  = std::chrono::steady_clock::now();
-  double dot = dot_serial( len, a.data(), b.data() );
+  double dot = dot_openmp( len, a.data(), b.data() );
   auto   t2  = std::chrono::steady_clock::now();
 
   auto dur =

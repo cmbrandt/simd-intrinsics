@@ -1,7 +1,7 @@
 // dot_avx2_vertical.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -mavx2 dot_avx2_vertical.cxx -o avx2_vertical.exe
+//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -O3 dot_avx2_vertical.cxx -o avx2_vertical.exe
 
 // Usage:
 //    ./avx2_vertical.exe len

@@ -1,7 +1,7 @@
 // dot_sse_vertical.cxx
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -msse4 dot_sse_vertical.cxx -o sse_vertical.exe
+//    g++-9 -Wall -pedantic -std=c++17 -msse4 -O3 dot_sse_vertical.cxx -o sse_vertical.exe
 
 // Usage:
 //    ./sse_vertical.exe len
