@@ -53,9 +53,9 @@ int main(int argc, char** argv)
 
   double dot = dot_17_avx512_vertical_fma_2( len, x.data(), y.data() );
 
-  auto   t1  = std::chrono::steady_clock::now();
+  auto   t1  = std::chrono::high_resolution_clock::now();
          dot = dot_17_avx512_vertical_fma_2( len, x.data(), y.data() );
-  auto   t2  = std::chrono::steady_clock::now();
+  auto   t2  = std::chrono::high_resolution_clock::now();
 
   auto dur =
     std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
