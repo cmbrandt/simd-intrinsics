@@ -1,5 +1,6 @@
 // dot_01_sse4_vertical.cxx
 
+
 // Compile:
 //    g++-9 -Wall -pedantic -std=c++17 -msse4 -O3 dot_01_sse4_vertical.cxx -o sse4_vertical.exe
 

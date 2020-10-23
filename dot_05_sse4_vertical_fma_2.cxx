@@ -1,5 +1,6 @@
 // dot_05_sse4_vertical_fma_2.cxx
 
+
 // Compile:
 //    g++-9 -Wall -pedantic -std=c++17 -msse4 -mfma -O3 dot_05_sse4_vertical_fma_2.cxx -o sse4_vertical_fma_2.exe
 

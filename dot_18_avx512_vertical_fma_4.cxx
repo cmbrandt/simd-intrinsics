@@ -1,10 +1,11 @@
-// dot_avx2_vertical_fma_2.cxx
+// dot_18_avx512_vertical_fma_4.cxx
+
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -mfma -O3 dot_avx2_vertical_fma_2.cxx -o avx2_vertical_fma_2.exe
+//    g++-9 -Wall -pedantic -std=c++17 -mavx512f -mfma -O3 dot_18_avx512_vertical_fma_2.cxx -o avx512_vertical_fma_4.exe
 
 // Usage:
-//    ./avx2_vertical_fma_2.exe len
+//    ./avx512_vertical_fma_4.exe len
 
 
 #include <chrono>
@@ -14,7 +15,7 @@
 #include <immintrin.h>
 
 
-double dot_avx2_vertical_fma_2(std::int32_t n, double* x, double* y)
+double dot_18_avx512_vertical_fma_2(std::int32_t n, double* x, double* y)
 {
   __m256d temp1 = _mm256_setzero_pd();
   __m256d temp2 = _mm256_setzero_pd();
@@ -50,7 +51,7 @@ int main(int argc, char** argv)
   std::vector<double> y(len, 1.0);
 
   auto   t1  = std::chrono::steady_clock::now();
-  double dot = dot_avx2_vertical_fma_2( len, x.data(), y.data() );
+  double dot = dot_18_avx512_vertical_fma_2( len, x.data(), y.data() );
   auto   t2  = std::chrono::steady_clock::now();
 
   auto dur =

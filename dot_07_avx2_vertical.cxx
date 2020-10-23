@@ -1,5 +1,6 @@
 // dot_3_avx2_vertical.cxx
 
+
 // Compile:
 //    g++-9 -Wall -pedantic -std=c++17 -mavx2 -O3 dot_3_avx2_vertical.cxx -o avx2_vertical.exe
 

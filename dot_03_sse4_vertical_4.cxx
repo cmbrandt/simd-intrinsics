@@ -1,5 +1,6 @@
 // dot_03_sse4_vertical_4.cxx
 
+
 // Compile:
 //    g++-9 -Wall -pedantic -std=c++17 -msse4 -O3 dot_03_sse4_vertical_4.cxx -o sse4_vertical_4.exe
 
@@ -39,8 +40,8 @@ double dot_03_sse4_vertical_4(std::int32_t n, double* x, double* y)
   double sum[8];
   _mm_store_pd(&sum[0], temp1);
   _mm_store_pd(&sum[2], temp2);
-  _mm_store_pd(&sum[4], temp1);
-  _mm_store_pd(&sum[6], temp2);
+  _mm_store_pd(&sum[4], temp3);
+  _mm_store_pd(&sum[6], temp4);
 
   return sum[0] + sum[1] + sum[2] + sum[3]
        + sum[4] + sum[5] + sum[6] + sum[7];

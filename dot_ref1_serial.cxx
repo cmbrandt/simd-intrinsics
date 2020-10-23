@@ -1,5 +1,6 @@
 // dot_ref1_serial.cxx
 
+
 // Compile:
 //    g++-9 -Wall -pedantic -std=c++17 -O3 dot_ref1_serial.cxx -o serial.exe
 

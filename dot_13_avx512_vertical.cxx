@@ -1,7 +1,8 @@
-// dot_3_avx2_vertical.cxx
+// dot_13_avx512_vertical.cxx
+
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -O3 dot_3_avx2_vertical.cxx -o avx2_vertical.exe
+//    g++-9 -Wall -pedantic -std=c++17 -mavx512f -O3 dot_13_avx512_vertical.cxx -o avx512_vertical.exe
 
 // Usage:
 //    ./avx2_vertical.exe len
@@ -14,20 +15,21 @@
 #include <immintrin.h>
 
 
-double dot_3_avx2_vertical(std::int32_t n, double* x, double* y)
+double dot_13_avx512_vertical(std::int32_t n, double* x, double* y)
 {
-  __m256d temp = _mm256_setzero_pd();
+  __m512d temp = _mm512_setzero_pd();
 
-  for (std::int32_t i = 0; i < n; i = i + 4) {
-    __m256d vx = _mm256_load_pd(&x[i]);
-    __m256d vy = _mm256_load_pd(&y[i]);
-    temp = _mm256_add_pd(_mm256_mul_pd(vx, vy), temp);
+  for (std::int32_t i = 0; i < n; i = i + 8) {
+    __m512d vx = _mm512_loadu_pd(&x[i]);
+    __m512d vy = _mm512_loadu_pd(&y[i]);
+    temp = _mm512_add_pd(_mm512_mul_pd(vx, vy), temp);
   }
 
-  double sum[4];
-  _mm256_store_pd(&sum[0], temp);
+  double sum[8];
+  _mm512_store_pd(&sum[0], temp);
 
-  return sum[0] + sum[1] + sum[2] + sum[3];
+  return sum[0] + sum[1] + sum[2] + sum[3]
+       + sum[4] + sum[5] + sum[6] + sum[7];
 }
 
 
@@ -42,7 +44,7 @@ int main(int argc, char** argv)
   std::vector<double> y(len, 1.0);
 
   auto   t1  = std::chrono::steady_clock::now();
-  double dot = dot_3_avx2_vertical( len, x.data(), y.data() );
+  double dot = dot_13_avx512_vertical( len, x.data(), y.data() );
   auto   t2  = std::chrono::steady_clock::now();
 
   auto dur =
