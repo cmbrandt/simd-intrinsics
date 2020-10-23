@@ -9,6 +9,7 @@
 
 
 #include <chrono>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -19,7 +20,7 @@ double dot_01_sse4_vertical(std::int32_t n, double* x, double* y)
 {
   __m128d temp = _mm_setzero_pd();
 
-  for (std::int32_t i = 0; i < n; i = i + 2) {
+  for (std::int32_t i = 0; i < n; i += 2) {
     __m128d vx = _mm_load_pd(&x[i]);
     __m128d vy = _mm_load_pd(&y[i]);
     temp = _mm_add_pd(_mm_mul_pd(vx, vy), temp);
@@ -34,7 +35,7 @@ double dot_01_sse4_vertical(std::int32_t n, double* x, double* y)
 
 int main(int argc, char** argv)
 {
-  std::int32_t len{50000};
+  std::int32_t len{65536};
 
   if (argc > 1)
     len = std::stoi(argv[1]);
@@ -42,14 +43,17 @@ int main(int argc, char** argv)
   std::vector<double> x(len, 1.0);
   std::vector<double> y(len, 1.0);
 
-  auto   t1  = std::chrono::steady_clock::now();
   double dot = dot_01_sse4_vertical( len, x.data(), y.data() );
+
+  auto   t1  = std::chrono::steady_clock::now();
+         dot = dot_01_sse4_vertical( len, x.data(), y.data() );
   auto   t2  = std::chrono::steady_clock::now();
 
   auto dur =
-    std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
+    std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
 
-  std::cout << "\nsize     = " << len
+  std::cout << std::fixed << std::setprecision(0)
+            << "\nsize     = " << len
             << "\nsolution = " << dot
-            << "\ntime     = " << dur.count() << std::endl;
+            << "\nmicrosec = " << dur.count() << std::endl;
 }

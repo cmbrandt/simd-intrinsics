@@ -40,8 +40,8 @@ double dot_15_avx512_vertical_4(std::int32_t n, double* x, double* y)
   double sum[32];
   _mm512_store_pd(&sum[0],  temp1);
   _mm512_store_pd(&sum[8],  temp2);
-  _mm512_store_pd(&sum[16], temp2);
-  _mm512_store_pd(&sum[24], temp2);
+  _mm512_store_pd(&sum[16], temp3);
+  _mm512_store_pd(&sum[24], temp4);
 
   return sum[0]  + sum[1]  + sum[2]  + sum[3]
        + sum[4]  + sum[5]  + sum[6]  + sum[7]
