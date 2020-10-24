@@ -53,7 +53,6 @@ double dot_18_avx512_vertical_fma_4(std::int32_t n, double* x, double* y)
        + sum[24] + sum[25] + sum[26] + sum[27]
        + sum[28] + sum[29] + sum[30] + sum[31];
 */
-  std::cout << "\njust before return" << std::endl;
   return _mm512_reduce_add_pd(temp1) + _mm512_reduce_add_pd(temp2)
        + _mm512_reduce_add_pd(temp3) + _mm512_reduce_add_pd(temp4);    
 }
