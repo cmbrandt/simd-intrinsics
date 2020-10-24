@@ -59,7 +59,7 @@ double dot_15_avx512_vertical_4(std::int32_t n, double* x, double* y)
 
 int main(int argc, char** argv)
 {
-  std::int32_t len{50000};
+  std::int32_t len{65536};
 
   if (argc > 1)
     len = std::stoi(argv[1]);
