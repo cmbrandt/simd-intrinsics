@@ -23,7 +23,7 @@ double dot_18_avx512_vertical_fma_4(std::int32_t n, double* x, double* y)
   __m512d temp3 = _mm512_setzero_pd();
   __m512d temp4 = _mm512_setzero_pd();
 
-  for (std::int32_t i = 0; i < n; i += 16) { // seg fault for i += 32
+  for (std::int32_t i = 0; i < n; i += 32) { // seg fault for i += 32
     __m512d vx = _mm512_load_pd(&x[i]);
     __m512d vy = _mm512_load_pd(&y[i]);
     temp1 = _mm512_fmadd_pd(vx, vy, temp1);
@@ -37,7 +37,7 @@ double dot_18_avx512_vertical_fma_4(std::int32_t n, double* x, double* y)
     vy    = _mm512_loadu_pd(&y[i+24]);
     temp4 = _mm512_fmadd_pd(vx, vy, temp4);
   }
-
+/*
   double sum[32];
   _mm512_store_pd(&sum[0],  temp1);
   _mm512_store_pd(&sum[8],  temp2);
@@ -52,6 +52,9 @@ double dot_18_avx512_vertical_fma_4(std::int32_t n, double* x, double* y)
        + sum[20] + sum[21] + sum[22] + sum[23]
        + sum[24] + sum[25] + sum[26] + sum[27]
        + sum[28] + sum[29] + sum[30] + sum[31];
+*/
+  return _mm512_reduce_add_pd(temp1) + _mm512_reduce_add_pd(temp2)
+       + _mm512_reduce_add_pd(temp3) + _mm512_reduce_add_pd(temp4);    
 }
 
 

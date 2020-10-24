@@ -29,7 +29,7 @@ double dot_17_avx512_vertical_fma_2(std::int32_t n, double* x, double* y)
     vy    = _mm512_loadu_pd(&y[i+8]);
     temp2 = _mm512_fmadd_pd(vx, vy, temp2);
   }
-
+/*
   double sum[16];
   _mm512_store_pd(&sum[0], temp1);
   _mm512_store_pd(&sum[8], temp2);
@@ -38,6 +38,8 @@ double dot_17_avx512_vertical_fma_2(std::int32_t n, double* x, double* y)
        + sum[4]  + sum[5]  + sum[6]  + sum[7]
        + sum[8]  + sum[9]  + sum[10] + sum[11]
        + sum[12] + sum[13] + sum[14] + sum[15];
+*/
+  return _mm512_reduce_add_pd(temp1) + _mm512_reduce_add_pd(temp2);
 }
 
 

@@ -24,12 +24,14 @@ double dot_16_avx512_vertical_fma(std::int32_t n, double* x, double* y)
     __m512d vy = _mm512_loadu_pd(&y[i]);
     temp = _mm512_fmadd_pd(vx, vy, temp);
   }
-
+/*
   double sum[8];
   _mm512_store_pd(&sum[0], temp);
 
   return sum[0] + sum[1] + sum[2] + sum[3]
        + sum[4] + sum[5] + sum[6] + sum[7];
+*/
+  return _mm512_reduce_add_pd(temp);
 }
 
 
@@ -48,9 +50,9 @@ int main(int argc, char** argv)
   auto   t2  = std::chrono::steady_clock::now();
 
   auto dur =
-    std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
+    std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
 
   std::cout << "\nsize     = " << len
             << "\nsolution = " << dot
-            << "\ntime     = " << dur.count() << std::endl;
+            << "\nmicrosec = " << dur.count() << std::endl;
 }
