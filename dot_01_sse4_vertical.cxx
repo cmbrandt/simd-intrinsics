@@ -1,4 +1,4 @@
-// dot_01_sse4_vertical.cxx
+-// dot_01_sse4_vertical.cxx
 
 
 // Compile:
