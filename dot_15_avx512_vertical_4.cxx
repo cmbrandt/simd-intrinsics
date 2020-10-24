@@ -36,7 +36,7 @@ double dot_15_avx512_vertical_4(std::int32_t n, double* x, double* y)
     vy    = _mm512_loadu_pd(&y[i+24]);
     temp4 = _mm512_add_pd(_mm512_mul_pd(vx, vy), temp4);
   }
-
+/*
   double sum[32];
   _mm512_store_pd(&sum[0],  temp1);
   _mm512_store_pd(&sum[8],  temp2);
@@ -51,6 +51,9 @@ double dot_15_avx512_vertical_4(std::int32_t n, double* x, double* y)
        + sum[20] + sum[21] + sum[22] + sum[23]
        + sum[24] + sum[25] + sum[26] + sum[27]
        + sum[28] + sum[29] + sum[30] + sum[31];
+*/
+  return _mm512_reduce_add_pd(temp1) + _mm512_reduce_add_pd(temp2)
+       + _mm512_reduce_add_pd(temp3) + _mm512_reduce_add_pd(temp4);
 }
 
 
