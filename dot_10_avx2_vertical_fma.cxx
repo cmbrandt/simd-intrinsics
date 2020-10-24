@@ -1,8 +1,8 @@
-// dot_avx2_vertical_fma.cxx
+// dot_10_avx2_vertical_fma.cxx
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -mfma -O3 dot_avx2_vertical_fma.cxx -o avx2_vertical_fma.exe
+//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -mfma -O3 dot_10_avx2_vertical_fma.cxx -o avx2_vertical_fma.exe
 
 // Usage:
 //    ./avx2_vertical_fma.exe len
@@ -34,7 +34,7 @@ double dot_avx2_vertical_fma(std::int32_t n, double* x, double* y)
 
 int main(int argc, char** argv)
 {
-  std::int32_t len{50000};
+  std::int32_t len{65536};
 
   if (argc > 1)
     len = std::stoi(argv[1]);

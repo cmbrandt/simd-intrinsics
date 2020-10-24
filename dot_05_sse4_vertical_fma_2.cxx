@@ -39,7 +39,7 @@ double dot_05_sse4_vertical_fma_2(std::int32_t n, double* x, double* y)
 
 int main(int argc, char** argv)
 {
-  std::int32_t len{50000};
+  std::int32_t len{65536};
 
   if (argc > 1)
     len = std::stoi(argv[1]);
