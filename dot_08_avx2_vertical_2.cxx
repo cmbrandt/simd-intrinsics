@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -O3 dot_4_avx2_vertical_2.cxx -o avx2_vertical_2.exe
+//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -O3 dot_08_avx2_vertical_2.cxx -o avx2_vertical_2.exe
 
 // Usage:
 //    ./avx2_vertical_2.exe len
@@ -21,11 +21,11 @@ double dot_4_avx2_vertical_2(std::int32_t n, double* x, double* y)
   __m256d temp2 = _mm256_setzero_pd();
 
   for (std::int32_t i = 0; i < n; i += 8) {
-    __m256d vx = _mm256_load_pd(&x[i]);
-    __m256d vy = _mm256_load_pd(&y[i]);
+    __m256d vx = _mm256_loadu_pd(&x[i]);
+    __m256d vy = _mm256_loadu_pd(&y[i]);
     temp1 = _mm256_add_pd(_mm256_mul_pd(vx, vy), temp1);
-    vx    = _mm256_load_pd(&x[i+4]);
-    vy    = _mm256_load_pd(&y[i+4]);
+    vx    = _mm256_loadu_pd(&x[i+4]);
+    vy    = _mm256_loadu_pd(&y[i+4]);
     temp2 = _mm256_add_pd(_mm256_mul_pd(vx, vy), temp2);
   }
 
@@ -53,9 +53,9 @@ int main(int argc, char** argv)
   auto   t2  = std::chrono::steady_clock::now();
 
   auto dur =
-    std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
+    std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
 
   std::cout << "\nsize     = " << len
             << "\nsolution = " << dot
-            << "\ntime     = " << dur.count() << std::endl;
+            << "\nmicrosec = " << dur.count() << std::endl;
 }

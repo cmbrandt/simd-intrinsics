@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -fopenmp -std=c++17 -O3 dot_ref5_openmp.cxx -o openmp.exe
+//    g++-9 -Wall -pedantic -fopenmp -std=c++17 -O3 -mavx512f dot_ref5_openmp.cxx -o openmp.exe
 
 // Usage:
 //    ./openmp.exe len
@@ -30,7 +30,7 @@ double dot_ref_openmp(std::int32_t n, double* x, double* y)
 
 int main(int argc, char** argv)
 {
-  std::int32_t len{50000};
+  std::int32_t len{65536};
 
   if (argc > 1)
     len = std::stoi(argv[1]);
@@ -43,9 +43,9 @@ int main(int argc, char** argv)
   auto   t2  = std::chrono::steady_clock::now();
 
   auto dur =
-    std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
+    std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
 
   std::cout << "\nsize     = " << len
             << "\nsolution = " << dot
-            << "\ntime     = " << dur.count() << std::endl;
+            << "\nmicrosec = " << dur.count() << std::endl;
 }

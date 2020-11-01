@@ -51,21 +51,27 @@ double dot_06_sse4_vertical_fma_4(std::int32_t n, double* x, double* y)
 int main(int argc, char** argv)
 {
   std::int32_t len{65536};
+  std::int32_t n{100};
 
   if (argc > 1)
-    len = std::stoi(argv[1]);
+    n = std::stoi(argv[1]);
 
   std::vector<double> x(len, 1.0);
   std::vector<double> y(len, 1.0);
 
-  auto   t1  = std::chrono::steady_clock::now();
+  //double dot = dot_06_sse4_vertical_fma_4( len, x.data(), y.data() );
+
+  auto t1  = std::chrono::steady_clock::now();
+
+  //for (std::int32_t i = 0; i < n; ++i)
   double dot = dot_06_sse4_vertical_fma_4( len, x.data(), y.data() );
-  auto   t2  = std::chrono::steady_clock::now();
+  
+  auto t2  = std::chrono::steady_clock::now();
 
   auto dur =
-    std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
+    std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
 
   std::cout << "\nsize     = " << len
             << "\nsolution = " << dot
-            << "\ntime     = " << dur.count() << std::endl;
+            << "\nmicrosec = " << dur.count() << std::endl;
 }

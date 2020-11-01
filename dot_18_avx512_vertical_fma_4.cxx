@@ -80,5 +80,5 @@ int main(int argc, char** argv)
   std::cout << std::fixed << std::setprecision(0)
             << "\nsize     = " << len
             << "\nsolution = " << dot
-            << "\ntime     = " << dur.count() << std::endl;
+            << "\nmicrosec = " << dur.count() << std::endl;
 }
