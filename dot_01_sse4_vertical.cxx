@@ -1,8 +1,8 @@
--// dot_01_sse4_vertical.cxx
+// dot_01_sse4_vertical.cxx
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -msse4 -O3 dot_01_sse4_vertical.cxx -o sse4_vertical.exe
+//    g++-10 -Wall -pedantic -std=c++17 -msse4 -O3 dot_01_sse4_vertical.cxx -o sse4_vertical.exe
 
 // Usage:
 //    ./sse4_vertical.exe len
@@ -26,10 +26,8 @@ double dot_01_sse4_vertical(std::int32_t n, double* x, double* y)
     temp = _mm_add_pd(_mm_mul_pd(vx, vy), temp);
   }
 
-  double sum[2];
-  _mm_store_pd(&sum[0], temp);
-
-  return sum[0] + sum[1];
+  __m128d high64 = _mm_unpackhi_pd(temp, temp);
+  return _mm_cvtsd_f64(_mm_add_sd(temp, high64));
 }
 
 
@@ -52,7 +50,7 @@ int main(int argc, char** argv)
   auto dur =
     std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
 
-  std::cout << std::fixed << std::setprecision(0)
+  std::cout //<< std::fixed << std::setprecision(0)
             << "\nsize     = " << len
             << "\nsolution = " << dot
             << "\nmicrosec = " << dur.count() << std::endl;

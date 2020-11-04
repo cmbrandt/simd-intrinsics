@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -msse4 -O3 dot_03_sse4_vertical_4.cxx -o sse4_vertical_4.exe
+//    g++-10 -Wall -pedantic -std=c++17 -msse4 -O3 dot_03_sse4_vertical_4.cxx -o sse4_vertical_4.exe
 
 // Usage:
 //    ./sse4_vertical_4.exe len
@@ -37,14 +37,12 @@ double dot_03_sse4_vertical_4(std::int32_t n, double* x, double* y)
     temp4 = _mm_add_pd(_mm_mul_pd(vx, vy), temp4);
   }
 
-  double sum[8];
-  _mm_store_pd(&sum[0], temp1);
-  _mm_store_pd(&sum[2], temp2);
-  _mm_store_pd(&sum[4], temp3);
-  _mm_store_pd(&sum[6], temp4);
+  temp2 = _mm_add_pd(temp1, temp2);
+  temp4 = _mm_add_pd(temp3, temp4);
+  temp2 = _mm_add_pd(temp2, temp4);
 
-  return sum[0] + sum[1] + sum[2] + sum[3]
-       + sum[4] + sum[5] + sum[6] + sum[7];
+  __m128d high64 = _mm_unpackhi_pd(temp2, temp2);
+  return _mm_cvtsd_f64(_mm_add_sd(temp2, high64));
 }
 
 
