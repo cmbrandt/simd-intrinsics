@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -msse4 -mfma -O3 dot_04_sse4_vertical_fma.cxx -o sse4_vertical_fma.exe
+//    g++-10 -Wall -pedantic -std=c++17 -msse4 -mfma -O3 dot_04_sse4_vertical_fma.cxx -o sse4_vertical_fma.exe
 
 // Usage:
 //    ./sse4_vertical_fma.exe len
@@ -25,10 +25,8 @@ double dot_04_sse4_vertical_fma(std::int32_t n, double* x, double* y)
     temp = _mm_fmadd_pd(vx, vy, temp);
   }
 
-  double sum[2];
-  _mm_store_pd(&sum[0], temp);
-
-  return sum[0] + sum[1];
+  __m128d high64 = _mm_unpackhi_pd(temp, temp);
+  return _mm_cvtsd_f64(_mm_add_sd(temp, high64));
 }
 
 

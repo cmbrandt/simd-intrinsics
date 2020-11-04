@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -msse4 -mfma -O3 dot_06_sse4_vertical_fma_4.cxx -o sse4_vertical_fma_4.exe
+//    g++-10 -Wall -pedantic -std=c++17 -msse4 -mfma -O3 dot_06_sse4_vertical_fma_4.cxx -o sse4_vertical_fma_4.exe
 
 // Usage:
 //    ./sse4_vertical_fma_4.exe len
@@ -37,33 +37,27 @@ double dot_06_sse4_vertical_fma_4(std::int32_t n, double* x, double* y)
     temp4 = _mm_fmadd_pd(vx, vy, temp4);
   }
 
-  double sum[8];
-  _mm_store_pd(&sum[0], temp1);
-  _mm_store_pd(&sum[2], temp2);
-  _mm_store_pd(&sum[4], temp1);
-  _mm_store_pd(&sum[6], temp2);
+  temp2 = _mm_add_pd(temp1, temp2);
+  temp4 = _mm_add_pd(temp3, temp4);
+  temp2 = _mm_add_pd(temp2, temp4);
 
-  return sum[0] + sum[1] + sum[2] + sum[3]
-       + sum[4] + sum[5] + sum[6] + sum[7];
+  __m128d high64 = _mm_unpackhi_pd(temp2, temp2);
+  return _mm_cvtsd_f64(_mm_add_sd(temp2, high64));
 }
 
 
 int main(int argc, char** argv)
 {
   std::int32_t len{65536};
-  std::int32_t n{100};
 
   if (argc > 1)
-    n = std::stoi(argv[1]);
+    len = std::stoi(argv[1]);
 
   std::vector<double> x(len, 1.0);
   std::vector<double> y(len, 1.0);
 
-  //double dot = dot_06_sse4_vertical_fma_4( len, x.data(), y.data() );
-
   auto t1  = std::chrono::steady_clock::now();
 
-  //for (std::int32_t i = 0; i < n; ++i)
   double dot = dot_06_sse4_vertical_fma_4( len, x.data(), y.data() );
   
   auto t2  = std::chrono::steady_clock::now();
