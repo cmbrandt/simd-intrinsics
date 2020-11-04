@@ -1,8 +1,8 @@
-// dot_4_avx2_vertical_2.cxx
+// dot_08_avx2_vertical_2.cxx
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -O3 dot_08_avx2_vertical_2.cxx -o avx2_vertical_2.exe
+//    g++-10 -Wall -pedantic -std=c++17 -mavx2 -O3 dot_08_avx2_vertical_2.cxx -o avx2_vertical_2.exe
 
 // Usage:
 //    ./avx2_vertical_2.exe len
@@ -29,12 +29,14 @@ double dot_4_avx2_vertical_2(std::int32_t n, double* x, double* y)
     temp2 = _mm256_add_pd(_mm256_mul_pd(vx, vy), temp2);
   }
 
-  double sum[8];
-  _mm256_store_pd(&sum[0], temp1);
-  _mm256_store_pd(&sum[4], temp2);
+  temp2 = _mm256_add_pd(temp1, temp2);
 
-  return sum[0] + sum[1] + sum[2] + sum[3]
-       + sum[4] + sum[5] + sum[6] + sum[7];
+  __m128d low128  = _mm256_castpd256_pd128(temp2);
+  __m128d high128 = _mm256_extractf128_pd(temp2, 1);
+          low128  = _mm_add_pd(low128, high128);
+
+  __m128d high64 = _mm_unpackhi_pd(low128, low128);
+  return _mm_cvtsd_f64(_mm_add_sd(low128, high64));
 }
 
 
