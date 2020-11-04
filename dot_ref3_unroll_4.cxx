@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -O3 -mavx512f dot_ref3_unroll_4.cxx -o unroll_4.exe
+//    g++-10 -Wall -pedantic -std=c++17 -mavx512f -mfma -O3 -mavx512f dot_ref3_unroll_4.cxx -o unroll_4.exe
 
 // Usage:
 //    ./unroll_4.exe len

@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -O3 dot_ref1_serial.cxx -o serial.exe
+//    g++-10 -Wall -pedantic -std=c++17 -mavx512f -mfma -O3 dot_ref1_serial.cxx -o serial.exe
 
 // Usage:
 //    ./serial.exe len
