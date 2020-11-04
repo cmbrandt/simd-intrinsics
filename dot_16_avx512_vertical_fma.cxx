@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -mavx512f -mfma -O3 dot_16_avx512_vertical_fma.cxx -o avx512_vertical_fma.exe
+//    g++-10 -Wall -pedantic -std=c++17 -mavx512f -mfma -O3 dot_16_avx512_vertical_fma.cxx -o avx512_vertical_fma.exe
 
 // Usage:
 //    ./avx512_vertical_fma.exe len
@@ -24,14 +24,8 @@ double dot_16_avx512_vertical_fma(std::int32_t n, double* x, double* y)
     __m512d vy = _mm512_loadu_pd(&y[i]);
     temp = _mm512_fmadd_pd(vx, vy, temp);
   }
-///*
-  double sum[8];
-  _mm512_store_pd(&sum[0], temp);
 
-  return sum[0] + sum[1] + sum[2] + sum[3]
-       + sum[4] + sum[5] + sum[6] + sum[7];
-//*/
-  //return _mm512_reduce_add_pd(temp);
+  return _mm512_reduce_add_pd(temp);
 }
 
 

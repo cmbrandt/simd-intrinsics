@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++ -Wall -pedantic -std=c++17 -mavx512f -mfma -O3 dot_17_avx512_vertical_fma_2.cxx -o avx512_vertical_fma_2.exe
+//    g++-10 -Wall -pedantic -std=c++17 -mavx512f -mfma -O3 dot_17_avx512_vertical_fma_2.cxx -o avx512_vertical_fma_2.exe
 
 // Usage:
 //    ./avx512_vertical_fma_2.exe len
