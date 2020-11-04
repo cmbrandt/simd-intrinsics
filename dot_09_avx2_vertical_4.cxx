@@ -36,14 +36,6 @@ double dot_4_avx2_vertical_2(std::int32_t n, double* x, double* y)
     vy    = _mm256_loadu_pd(&y[i+12]);
     temp4 = _mm256_add_pd(_mm256_mul_pd(vx, vy), temp4);
   }
-/*
-  double sum[8];
-  _mm256_store_pd(&sum[0], temp1);
-  _mm256_store_pd(&sum[4], temp2);
-
-  return sum[0] + sum[1] + sum[2] + sum[3]
-       + sum[4] + sum[5] + sum[6] + sum[7];
-*/
 
   temp2 = _mm256_add_pd(temp1, temp2);
   temp4 = _mm256_add_pd(temp3, temp4);

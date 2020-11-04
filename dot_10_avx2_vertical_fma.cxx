@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-9 -Wall -pedantic -std=c++17 -mavx2 -mfma -O3 dot_10_avx2_vertical_fma.cxx -o avx2_vertical_fma.exe
+//    g++-10 -Wall -pedantic -std=c++17 -mavx2 -mfma -O3 dot_10_avx2_vertical_fma.cxx -o avx2_vertical_fma.exe
 
 // Usage:
 //    ./avx2_vertical_fma.exe len
@@ -20,15 +20,18 @@ double dot_avx2_vertical_fma(std::int32_t n, double* x, double* y)
   __m256d temp = _mm256_setzero_pd();
 
   for (std::int32_t i = 0; i < n; i = i + 4) {
-    __m256d vx = _mm256_load_pd(&x[i]);
-    __m256d vy = _mm256_load_pd(&y[i]);
+    __m256d vx = _mm256_loadu_pd(&x[i]);
+    __m256d vy = _mm256_loadu_pd(&y[i]);
     temp = _mm256_fmadd_pd(vx, vy, temp);
   }
 
-  double sum[4];
-  _mm256_store_pd(&sum[0], temp);
+  __m128d low128  = _mm256_castpd256_pd128(temp);
+  __m128d high128 = _mm256_extractf128_pd(temp, 1);
+          low128  = _mm_add_pd(low128, high128);
 
-  return sum[0] + sum[1] + sum[2] + sum[3];
+  __m128d high64 = _mm_unpackhi_pd(low128, low128);
+  return _mm_cvtsd_f64(_mm_add_sd(low128, high64));
+
 }
 
 
