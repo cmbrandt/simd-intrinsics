@@ -14,7 +14,7 @@
 #include <immintrin.h>
 
 
-double dot_avx2_vertical_fma(std::int32_t n, double x[], double y[])
+double dot_10_avx2_vertical_fma(std::int32_t n, double x[], double y[])
 {
   __m256d temp = _mm256_setzero_pd();
 
@@ -44,10 +44,10 @@ int main(int argc, char** argv)
   std::vector<double> x(len, 1.0);
   std::vector<double> y(len, 1.0);
 
-  double dot = dot_avx2_vertical_fma( len, x.data(), y.data() );
+  double dot = dot_10_avx2_vertical_fma( len, x.data(), y.data() );
 
   auto t1  = std::chrono::steady_clock::now();
-       dot = dot_avx2_vertical_fma( len, x.data(), y.data() );
+       dot = dot_10_avx2_vertical_fma( len, x.data(), y.data() );
   auto t2  = std::chrono::steady_clock::now();
 
   auto dur =
