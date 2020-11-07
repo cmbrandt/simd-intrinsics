@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-10 -Wall -pedantic -std=c++17 -mavx512f -O3 dot_14_avx512_vertical_2.cxx -o avx512_vertical_2.exe
+//    g++-10 -Wall -Wpedantic -std=c++17 -mavx512f -O3 dot_14_avx512_vertical_2.cxx -o avx512_vertical_2.exe
 
 // Usage:
 //    ./avx512_vertical_2.exe len
@@ -10,12 +10,11 @@
 
 #include <chrono>
 #include <iostream>
-#include <string>
 #include <vector>
 #include <immintrin.h>
 
 
-double dot_14_avx512_vertical_2(std::int32_t n, double* x, double* y)
+double dot_14_avx512_vertical_2(std::int32_t n, double x[], double y[])
 {
   __m512d temp1 = _mm512_setzero_pd();
   __m512d temp2 = _mm512_setzero_pd();
@@ -43,9 +42,11 @@ int main(int argc, char** argv)
   std::vector<double> x(len, 1.0);
   std::vector<double> y(len, 1.0);
 
-  auto   t1  = std::chrono::steady_clock::now();
   double dot = dot_14_avx512_vertical_2( len, x.data(), y.data() );
-  auto   t2  = std::chrono::steady_clock::now();
+
+  auto t1  = std::chrono::steady_clock::now();
+       dot = dot_14_avx512_vertical_2( len, x.data(), y.data() );
+  auto t2  = std::chrono::steady_clock::now();
 
   auto dur =
     std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);

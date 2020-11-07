@@ -2,21 +2,19 @@
 
 
 // Compile:
-//    g++-10 -Wall -pedantic -std=c++17 -mavx512f -mfma -O3 dot_17_avx512_vertical_fma_2.cxx -o avx512_vertical_fma_2.exe
+//    g++-10 -Wall -Wpedantic -std=c++17 -mavx512f -mfma -O3 dot_17_avx512_vertical_fma_2.cxx -o avx512_vertical_fma_2.exe
 
 // Usage:
 //    ./avx512_vertical_fma_2.exe len
 
 
 #include <chrono>
-#include <iomanip>
 #include <iostream>
-#include <string>
 #include <vector>
 #include <immintrin.h>
 
 
-double dot_17_avx512_vertical_fma_2(std::int32_t n, double* x, double* y)
+double dot_17_avx512_vertical_fma_2(std::int32_t n, double x[], double y[])
 {
   __m512d temp1 = _mm512_setzero_pd();
   __m512d temp2 = _mm512_setzero_pd();
@@ -48,15 +46,14 @@ int main(int argc, char** argv)
 
   double dot = dot_17_avx512_vertical_fma_2( len, x.data(), y.data() );
 
-  auto   t1  = std::chrono::high_resolution_clock::now();
-         dot = dot_17_avx512_vertical_fma_2( len, x.data(), y.data() );
-  auto   t2  = std::chrono::high_resolution_clock::now();
+  auto t1  = std::chrono::high_resolution_clock::now();
+       dot = dot_17_avx512_vertical_fma_2( len, x.data(), y.data() );
+  auto t2  = std::chrono::high_resolution_clock::now();
 
   auto dur =
     std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
 
-  std::cout << std::fixed << std::setprecision(0)
-            << "\nsize     = " << len
+  std::cout << "\nsize     = " << len
             << "\nsolution = " << dot
             << "\nmicrosec = " << dur.count() << std::endl;
 }
