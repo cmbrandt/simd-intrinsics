@@ -9,9 +9,7 @@
 
 
 #include <chrono>
-#include <iomanip>
 #include <iostream>
-#include <string>
 #include <vector>
 #include <immintrin.h>
 
@@ -50,8 +48,7 @@ int main(int argc, char** argv)
   auto dur =
     std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
 
-  std::cout //<< std::fixed << std::setprecision(0)
-            << "\nsize     = " << len
+  std::cout << "\nsize     = " << len
             << "\nsolution = " << dot
             << "\nmicrosec = " << dur.count() << std::endl;
 }
