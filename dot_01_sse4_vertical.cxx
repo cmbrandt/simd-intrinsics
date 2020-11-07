@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-10 -Wall -pedantic -std=c++17 -msse4 -O3 dot_01_sse4_vertical.cxx -o sse4_vertical.exe
+//    g++-10 -Wall -Wpedantic -std=c++17 -msse4 -O3 dot_01_sse4_vertical.cxx -o sse4_vertical.exe
 
 // Usage:
 //    ./sse4_vertical.exe len

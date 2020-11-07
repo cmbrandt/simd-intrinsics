@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-10 -Wall -pedantic -std=c++17 -msse4 -mfma -O3 dot_06_sse4_vertical_fma_4.cxx -o sse4_vertical_fma_4.exe
+//    g++-10 -Wall -Wpedantic -std=c++17 -msse4 -mfma -O3 dot_06_sse4_vertical_fma_4.cxx -o sse4_vertical_fma_4.exe
 
 // Usage:
 //    ./sse4_vertical_fma_4.exe len
@@ -56,10 +56,10 @@ int main(int argc, char** argv)
   std::vector<double> x(len, 1.0);
   std::vector<double> y(len, 1.0);
 
-  auto t1  = std::chrono::steady_clock::now();
-
   double dot = dot_06_sse4_vertical_fma_4( len, x.data(), y.data() );
-  
+
+  auto t1  = std::chrono::steady_clock::now();
+       dot = dot_06_sse4_vertical_fma_4( len, x.data(), y.data() );
   auto t2  = std::chrono::steady_clock::now();
 
   auto dur =
