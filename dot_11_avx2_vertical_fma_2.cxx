@@ -10,7 +10,6 @@
 
 #include <chrono>
 #include <iostream>
-#include <string>
 #include <vector>
 #include <immintrin.h>
 
@@ -33,7 +32,7 @@ double dot_avx2_vertical_fma_2(std::int32_t n, double* x, double* y)
 
   __m128d low128  = _mm256_castpd256_pd128(temp2);
   __m128d high128 = _mm256_extractf128_pd(temp2, 1);
-          low128  = _mm_add_pd(low128, high128);
+  low128  = _mm_add_pd(low128, high128);
 
   __m128d high64 = _mm_unpackhi_pd(low128, low128);
   return _mm_cvtsd_f64(_mm_add_sd(low128, high64));
@@ -50,9 +49,11 @@ int main(int argc, char** argv)
   std::vector<double> x(len, 1.0);
   std::vector<double> y(len, 1.0);
 
-  auto   t1  = std::chrono::steady_clock::now();
   double dot = dot_avx2_vertical_fma_2( len, x.data(), y.data() );
-  auto   t2  = std::chrono::steady_clock::now();
+
+  auto t1  = std::chrono::steady_clock::now();
+       dot = dot_avx2_vertical_fma_2( len, x.data(), y.data() );
+  auto t2  = std::chrono::steady_clock::now();
 
   auto dur =
     std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
