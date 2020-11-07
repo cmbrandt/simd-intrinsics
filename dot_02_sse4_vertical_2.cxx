@@ -14,7 +14,7 @@
 #include <immintrin.h>
 
 
-double dot_02_sse4_vertical_2(std::int32_t n, double* x, double* y)
+double dot_02_sse4_vertical_2(std::int32_t n, double x[], double y[])
 {
   __m128d temp1 = _mm_setzero_pd();
   __m128d temp2 = _mm_setzero_pd();

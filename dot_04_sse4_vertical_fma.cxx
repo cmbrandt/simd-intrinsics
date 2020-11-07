@@ -14,7 +14,7 @@
 #include <immintrin.h>
 
 
-double dot_04_sse4_vertical_fma(std::int32_t n, double* x, double* y)
+double dot_04_sse4_vertical_fma(std::int32_t n, double x[], double y[])
 {
   __m128d temp = _mm_setzero_pd();
 

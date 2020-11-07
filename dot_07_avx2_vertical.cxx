@@ -26,7 +26,7 @@ double dot_07_avx2_vertical(std::int32_t n, double* x, double* y)
 
   __m128d low128  = _mm256_castpd256_pd128(temp);
   __m128d high128 = _mm256_extractf128_pd(temp, 1);
-  low128  = _mm_add_pd(low128, high128);
+  low128 = _mm_add_pd(low128, high128);
 
   __m128d high64 = _mm_unpackhi_pd(low128, low128);
   return _mm_cvtsd_f64(_mm_add_sd(low128, high64));
