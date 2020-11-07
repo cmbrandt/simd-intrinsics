@@ -14,7 +14,7 @@
 #include <immintrin.h>
 
 
-double dot_07_avx2_vertical(std::int32_t n, double* x, double* y)
+double dot_07_avx2_vertical(std::int32_t n, double x[], double y[])
 {
   __m256d temp = _mm256_setzero_pd();
 

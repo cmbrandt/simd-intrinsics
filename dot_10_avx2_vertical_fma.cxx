@@ -2,7 +2,7 @@
 
 
 // Compile:
-//    g++-10 -Wall -pedantic -std=c++17 -mavx2 -mfma -O3 dot_10_avx2_vertical_fma.cxx -o avx2_vertical_fma.exe
+//    g++-10 -Wall -Wpedantic -std=c++17 -mavx2 -mfma -O3 dot_10_avx2_vertical_fma.cxx -o avx2_vertical_fma.exe
 
 // Usage:
 //    ./avx2_vertical_fma.exe len
@@ -14,11 +14,11 @@
 #include <immintrin.h>
 
 
-double dot_avx2_vertical_fma(std::int32_t n, double* x, double* y)
+double dot_avx2_vertical_fma(std::int32_t n, double x[], double y[])
 {
   __m256d temp = _mm256_setzero_pd();
 
-  for (std::int32_t i = 0; i < n; i = i + 4) {
+  for (std::int32_t i = 0; i < n; i += 4) {
     __m256d vx = _mm256_loadu_pd(&x[i]);
     __m256d vy = _mm256_loadu_pd(&y[i]);
     temp = _mm256_fmadd_pd(vx, vy, temp);
