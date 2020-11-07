@@ -41,9 +41,9 @@ int main(int argc, char** argv)
 
   double dot = dot_04_sse4_vertical_fma( len, x.data(), y.data() );
 
-  auto   t1  = std::chrono::steady_clock::now();
-         dot = dot_04_sse4_vertical_fma( len, x.data(), y.data() );
-  auto   t2  = std::chrono::steady_clock::now();
+  auto t1  = std::chrono::steady_clock::now();
+       dot = dot_04_sse4_vertical_fma( len, x.data(), y.data() );
+  auto t2  = std::chrono::steady_clock::now();
 
   auto dur =
     std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
